@@ -98,12 +98,9 @@ public class Issue : FullAuditedAggregateRoot<Guid> //Using Guid as the key/iden
 
     public virtual Issue AddLabel(Guid labelId)
     {
-        if (Labels.Any(l => l.LabelId == labelId))
-        {
-            return;
-        }
-
-        Labels.Add(new IssueLabel(Id, labelId));
+        if (!Labels.Any(l => l.LabelId == labelId))
+            Labels.Add(new IssueLabel(Id, labelId));
+        
         return this;
     }
     
